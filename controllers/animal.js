@@ -36,7 +36,7 @@ router.get("/animals/seed", (req, res) => {
 
 
 router.get("/animals", (req, res) => {
-    Animals.find({}, (err, animals) => {
+    Animal.find({}, (err, animals) => {
       res.render("animals/index.ejs", { animals });
     });
   });
@@ -57,9 +57,7 @@ router.post("/animals", (req, res) => {
     })
 })
 
-  // show route
-router.get("/animals/:id", (req, res) => {
-    const id = req.params.id
+
 
     //update route
 router.put("/animals/:id", (req, res) => {
@@ -79,8 +77,11 @@ router.delete("/animals/:id", (req, res) => {
     })
 })
 
+  // show route
+  router.get("/animals/:id", (req, res) => {
+    const id = req.params.id
     // find the particular animal from the database
-    Animals.findById(id, (err, animal) => {
+    Animal.findById(id, (err, animal) => {
         // render the template with the data from the database
         res.render("animals/show.ejs", {animal})
     })

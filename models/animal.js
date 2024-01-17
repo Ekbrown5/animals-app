@@ -1,6 +1,6 @@
 
 
-const {Schema, model} = mongoose
+const {Schema, model} = require("./connection")
 
 
 const animalsSchema = new Schema({
