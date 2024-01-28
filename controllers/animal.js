@@ -16,11 +16,11 @@ router.get("/animals/seed", (req, res) => {
 
    
     const startAnimals = [
-          { name: "Bear", color: "black", warm_blooded: false },
-          { name: "Bee", color: "yellow", warm_blooded: false },
-          { name: "Tiger", color: "orange", warm_blooded: false },
-          { name: "Wolf", color: "white", warm_blooded: false },
-          { name: "Flamingo", color: "pink", warm_blooded: false },
+          { species: "Bear", lifeExpectancy: 40, extinct: false },
+          { species: "Bee", lifeExpectancy: 50, extinct: false },
+          { species: "Tiger", lifeExpectancy: 60, extinct: false },
+          { species: "Wolf", lifeExpectancy: 70, extinct: false },
+          { species: "Flamingo", lifeExpectancy: 80, extinct: false },
         ]
   
   
@@ -34,33 +34,33 @@ router.get("/animals/seed", (req, res) => {
     });
   });
 
-
-router.get("/animals", (req, res) => {
-    Animal.find({}, (err, animals) => {
-      res.render("animals/index.ejs", { animals });
-    });
+// INDEX route
+  router.get("/", async (req, res) => {
+    try {
+      const animals = await Animal.find({});
+      res.render("animals/index.ejs", { animals});
+    } catch (err) {
+      console.log(err);
+      res.redirect("/");
+    }
   });
 
-  // new route
-router.get("/animals/new", (req, res) => {
+  // NEW route
+router.get("/new", (req, res) => {
     res.render("animals/new.ejs")
 })
 
-// create route
-router.post("/animals", (req, res) => {
-    // check if the readyToEat property should be true or false
+// CREATE route
+router.post("/", (req, res) => {
+    // check if the warm_blooded property should be true or false
     req.body.warm_blooded = req.body.warm_blooded === "on" ? true : false
-    // create the new fruit
-    Fruit.create(req.body, (err, fruit) => {
-        // redirect the user back to the main fruits page after fruit created
+    Animal.create(req.body, (err, animal) => {
         res.redirect("/animals")
     })
 })
 
-
-
-    //update route
-router.put("/animals/:id", (req, res) => {
+    //UPDATE route
+router.put("/:id", (req, res) => {
     const id = req.params.id
     req.body.warm_blooded = req.body.warm_//////////////////////////////////////////
     // Export the Router
@@ -70,15 +70,16 @@ router.put("/animals/:id", (req, res) => {
     })
 })
 
-router.delete("/animals/:id", (req, res) => {
+// DELETE
+router.delete("/:id", (req, res) => {
     const id = req.params.id
     Animal.findByIdAndRemove(id, (err, animal) => {
         res.redirect("/animals")
     })
 })
 
-  // show route
-  router.get("/animals/:id", (req, res) => {
+  // SHOW route
+  router.get("/:id", (req, res) => {
     const id = req.params.id
     // find the particular animal from the database
     Animal.findById(id, (err, animal) => {

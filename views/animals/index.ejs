@@ -7,12 +7,12 @@
     <main>
         <div>
             <a href="/animals/new"><button>Create A New Animal</button></a>
-          <% for (Animals) { %>
+          <% for (var i = 0; i < animals.length; i++) { %>
   
           <article>
-            <a href="/animals/<%= anaimal._id %>">
+            <a href="/animals/<%= animals[i]._id %>">
               <h2>
-                <%= animal.name %> - <%= animal.warm_blooded ? "mammal" : "Not mammal" %>
+                <%= animals[i].species %> - <%= animals[i].extinct ? "yes" : "Not extinct" %>
               </h2>
             </a>
           </article>

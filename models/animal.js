@@ -1,12 +1,11 @@
-
-
 const {Schema, model} = require("./connection")
 
 
 const animalsSchema = new Schema({
-    name: String,
-    color: String,
-    warm_blooded: Boolean
+    species: String,
+    extinct: Boolean,
+    location: String,
+    lifeExpectancy: Number
 })
 
 

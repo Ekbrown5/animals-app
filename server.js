@@ -19,7 +19,7 @@ app.use("/animals", animalRouter)
 
 
 app.get("/", (req, res) => {
-    res.send("your server is running... better catch it.")
+    res.redirect("your server is running... better catch it.")
 })
 
 
